@@ -430,6 +430,18 @@ border-bottom: 1px solid #a3a3a3;
   margin-top: 10px;
 }
 
+.top3{
+  margin-top: 13px;
+}
+
+.bottom1{
+  margin-bottom: 10px;
+}
+
+.top5{
+  margin-top: 26px;
+}
+
 .content p:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content ul:not(:last-child), .content blockquote:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child) {
   margin-bottom: initial;
 }
@@ -447,4 +459,8 @@ border-bottom: 1px solid #a3a3a3;
 .days_a{
   font-size: 17px;
   font-weight: bold;
+}
+
+.right{
+  display: flex;
 }

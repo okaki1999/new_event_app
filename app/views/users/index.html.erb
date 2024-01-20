@@ -16,7 +16,7 @@
   </div>
 </section>
 
-
+<div class="pc-calendar">
 <section class="section">
   <div class="container">
     <div class="columns is-multiline">
@@ -36,7 +36,7 @@
                   </figure>
                 </div>
               </div>
-            </div>　
+            </div>
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
@@ -81,3 +81,52 @@
     </div>
   </div>
 </section>
+</div>
+
+<div class="sp-calendar">
+
+ <section class="section">
+  <article class="media">
+    <div class="media-content">
+      <div class="content has-text-centered"> 
+
+
+      <% search_results = @q.result(distinct: true) %>
+      <% search_results.each do |user| %>
+      <div class="card bottom1">
+      <div class="right">
+        <div class="image is-96x96">
+          <% if user.avatar.attached? %>
+          <div class="top3">
+            <%= image_tag user.avatar %>
+          </div>
+          <% end %>
+        </div>
+
+                <div class="media-content top5">
+                  <div class="title"><%=link_to user.username, user_path(user) %></div>
+                </div>
+
+                </div>
+                    <div>
+                    <td>
+                    <% if current_user != user && user_signed_in?%>
+                        <% if current_user.following?(user) %>
+                          <%= link_to "フォロー解除", user_relationships_path(user.id),  data: { turbo_method: :delete }, class: "button is-primary is-fullwidth is-light" %>
+                        <% else %>
+                          <%= link_to "フォロー", user_relationships_path(user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth is-light" %>
+                        <% end %>
+                    <% end %>
+                    </td>  
+                    </div>   
+         </div>
+      <% end %>
+
+ </div>
+      </div>
+</article>
+</section> 
+
+  
+
+</div>
