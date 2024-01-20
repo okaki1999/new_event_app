@@ -2,8 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :timeoutable
+         :recoverable, :rememberable, :validatable
+         
   #サーチ機能
   scope :search_by_name, ->(query) { ransack(name_cont: query).result }
   #エリアの設定
