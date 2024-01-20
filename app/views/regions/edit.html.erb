@@ -1,0 +1,15 @@
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @region do |f| %>
+          <div class="field">
+            <%= f.label :regionname, "ユーザー名", class: "label" %>
+            <%= f.text_field :regionname, class: "input" %>
+          </div>
+          <%= f.submit "更新"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

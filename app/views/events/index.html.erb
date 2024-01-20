@@ -1,0 +1,141 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        イベント一覧
+      </h1>
+    </div>
+  </div>
+</section> 
+
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% if user_signed_in? %>
+        <% @r_events.each do |event| %>
+          <% if event.privacy== 2 &&(event.user.following? current_user) || event.privacy== 3 &&(current_user.following? event.user) && (event.user.following? current_user) || event.privacy == 1 || current_user == event.user %>
+            <div class="column is-4">
+            <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <%= link_to event_path(event) do %>
+                      <% if event.thumbnail.attached? %>
+                        <%= image_tag event.thumbnail %>
+                      <% end %>
+                    <% end %>
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                      <div class="image_b">
+                        <figure class="image is-48x48">
+                          <% if event.user.avatar.attached? %>
+                            <%= image_tag event.user.avatar, class: "profile_image" %>
+                          <% end %>
+                        </figure>
+                      </div>
+                    </div>
+                    <div class="media-content">
+                      <div class="title"><%=link_to event.user.username, user_path(event.user) %>
+                      </div>
+                      <div class="title"><h2>イベント名</h2><p><%=link_to event.title, event_path(event) %></p>
+                      </div>
+                      <div class="title"><h2>開催日時</h2><p><%= event.start_time.strftime("%m月/%d日 %H:%M") %></p></div>
+                      <div>
+                         <% if current_user != nil %>
+                            <% if current_user.already_favorited?(event) %>
+                              <%= link_to event_favorites_path(event), data: { turbo_method: :delete }  do %>
+                              <button class="button is-info is-fullwidth">未定にする</button>
+                              <% end %>
+                            <% elsif current_user.already_interested?(event)%>
+                              <%= link_to event_interesteds_path(event), data: { turbo_method: :delete }  do %>
+                              <button class="button is-primary is-fullwidth">未定にする</button>
+                              <% end %>
+                            <% elsif current_user.already_absence?(event)%>
+                              <%= link_to event_absences_path(event), data: { turbo_method: :delete }  do %>
+                              <button class="button is-danger is-fullwidth">未定にする</button>
+                              <% end %>
+                            <% else %>
+                              <%= link_to event_favorites_path(event), data: { turbo_method: :post }  do %>
+                                  <button class="button is-info">参加</button>
+                              <% end %>
+                              <%= link_to event_interesteds_path(event), data: { turbo_method: :post }  do %>
+                                  <button class="button is-primary">保留</button>
+                              <% end %>
+                              <%= link_to event_absences_path(event), data: { turbo_method: :post }  do %>
+                                  <button class="button is-danger">不参加</button>
+                              <% end %>
+                            <% end %> 
+                          <br>参加者数：<%= event.favorites.count %>
+                          <br>保留者数：<%= event.interesteds.count %>
+                          <br>不参加者数：<%= event.absences.count %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end%>
+      <% else %>
+        <% @r_events.each do |event| %>
+          <% if  event.privacy == 1 %>
+            <div class="column is-4">
+              <div class="card">
+               <div class="card-image">
+                  <figure class="image is-4by3">
+                    <%= link_to event_path(event) do %>
+                       <% if event.thumbnail.attached? %>
+                        <%= image_tag event.thumbnail %>
+                       <% end %>
+                     <% end %>
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                      <div class="image_b">
+                        <figure class="image is-48x48">
+                         <% if event.user.avatar.attached? %>
+                            <%= image_tag event.user.avatar, class: "profile_image" %>
+                          <% end %>
+                        </figure>
+                      </div>
+                    </div>
+                    <div class="media-content">
+                      <div class="title"><%=link_to event.user.username, user_path(event.user) %>
+                      </div>
+                      <div class="title"><h2>イベント名</h2><p><%=link_to event.title, event_path(event) %></p>
+                      </div>
+                      <div class="title"><h2>開催日時</h2><p><%= event.start_time.strftime("%m月/%d日 %H:%M") %></p></div>
+                      <div>
+                         <% if current_user != nil %>
+                          <% if current_user.already_favorited?(event) %>
+                            <%= link_to event_favorites_path(event), data: { turbo_method: :delete }  do %>
+                             <i class="fas fa-heart"></i>
+                            <% end %>
+                          <% else %>
+                            <%= link_to event_favorites_path(event), data: { turbo_method: :post }  do %>
+                                <i class="far fa-heart"></i>
+                            <% end %>
+                          <% end %> 
+                          <%= event.favorites.count %>
+                        <% end %>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <% end %>
+        <% end%>
+      <% end%>
+     </div>
+  </div>
+</section>

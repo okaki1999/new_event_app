@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EventApp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %> 
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/484e6509e8.js" crossorigin="anonymous"></script>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <div class="notification is-info">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="notification is-danger">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+    
+<div class="pc-calendar">
+<nav class="navbar is-warning">
+      <div class="navbar-brand">
+        <%=link_to root_path, class: "navbar-item" do %>
+         <h1 class="title is-4" style="font-family: sans-serif;">Events_Everything</h1>
+        <% end %>
+      </div>
+      
+      <% if user_signed_in? %>
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-item">
+          <%= link_to "イベント一覧", events_path, class: " button is-warning is-light" %>
+        </div>  
+         <div class="navbar-item">
+          <%= link_to "新規イベント作成", new_event_path, class: " button is-warning is-light" %>
+        </div>  
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                   <%= link_to "プロフィール一覧", users_path, class: " button is-warning is-light" %>
+                </p>
+                 <p class="control">
+                  <%= link_to "マイページ", user_path(current_user), class: "button is-warning is-light" %>
+                </p>
+                <p class="control">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-item">
+            <%= link_to "イベント一覧", events_path, class: " button is-warning is-light" %>
+          </div> 
+          <div class="navbar-item">
+            <%= link_to "プロフィール一覧", users_path, class: " button is-warning is-light" %>
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light" %>
+                </p>
+                <p class="control">
+                  <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light" %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </nav>
+</div>
+
+<div class="sp-calendar home_p">
+<nav class="navbar is-warning" style="width: 100vw;">
+      <div class="navbar-brand">
+        <%=link_to root_path, class: "navbar-item" do %>
+         <h1 class="title is-4" style="font-family: sans-serif;">Events_Everything</h1>
+        <% end %>
+          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+      </div>
+     </nav>
+    <div class="testmenu daily_size">
+      <% if user_signed_in? %>
+        <div class="navbar-end">
+          <p class="hamburger_center"><%= link_to "イベント一覧", events_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+          <p class="hamburger_center"><%= link_to "新規イベント作成", new_event_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+          <p class="hamburger_center"><%= link_to "プロフィール一覧", users_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+          <p class="hamburger_center"><%= link_to "マイページ", user_path(current_user), class: " button is-small is-fullwidth is-warning is-light" %></p>
+          <p class="hamburger_center"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: " button is-small is-fullwidth is-warning is-light" %></p>
+        </div>
+      <% else %>
+       <div class="navbar-end">
+        <p class="hamburger_center"><%= link_to "イベント一覧", events_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+        <p class="hamburger_center"><%= link_to "プロフィール一覧", users_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+        <p class="hamburger_center"><%= link_to "ログイン", new_user_session_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+        <p class="hamburger_center"><%= link_to "新規登録", new_user_registration_path, class: " button is-small is-fullwidth is-warning is-light" %></p>
+       </div>
+      <% end %>
+    </div>
+    </div>
+ 
+    
+    <%= yield %>
+  </body>
+</html>

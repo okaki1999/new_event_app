@@ -1,0 +1,116 @@
+<div class="sp-calendar head-p"></div>
+<section class="section">
+  <article class="media">
+    <div class="media-content">
+      <div class="content has-text-centered">
+        <p>
+          <div class="pc-calendar"><strong class="is-size-1" style="font-family: sans-serif;"><div class="t-titole">Events_Everything</div></strong></div>
+          <div class="testhome"><div class="sp-calendar"><div class=""></div><strong class="is-size-1" style="font-family: sans-serif;"><div class="t-title">Events_Everything</div></strong></div></div>
+        </p>
+      <div class="sp-calendar">
+      </div>
+        <div class="pc-calendar">
+          <div class="calendar_container">
+        <%= month_calendar events: @events do |date, events| %>
+          <%= date.day %>
+          <% if user_signed_in? %>
+            <% events.each do |event| %>
+            <% if event.privacy== 2 &&(event.user.following? current_user) || event.privacy== 3 &&(current_user.following? event.user) && (event.user.following? current_user) || event.privacy == 1 || current_user == event.user %>
+              <div class="menu_c">
+              <%= link_to event.title, event, class: "button is-warning is-fullwidth" %>
+              </div>
+            <% end %>
+            <% end%>
+          <% else %>
+            <% events.each do |event| %>
+            <% if  event.privacy == 1 %>
+               <div>
+              <%= link_to event.title, event, class: "button is-warning is-fullwidth" %>
+              </div>
+            <% end %>
+            <% end%>
+          <% end %>
+        <% end %>
+        </div>
+        </div>
+        
+        
+        <div class="sp-calendar top1 test">
+          <% if user_signed_in? %>
+            <% @sp_events.each do |event| %>
+            <% if event.privacy== 3 &&(current_user.following? event.user) && (event.user.following? current_user) || event.privacy == 1 || current_user == event.user %>
+              <article class="panel is-warning">
+                <p class="panel-heading">
+                  <%= event.start_time.strftime("%m月%d日") %><br><%= event.title %>
+                </p>
+                <div class="panel-block">
+                  <p class="control">
+                    <%= link_to event_path(event) do %>
+                    <% if event.thumbnail.attached? %>
+                    <%= image_tag event.thumbnail %>
+                    <% end %>
+                    <% end %>
+                  </p>
+                </div>
+                <a class="panel-block">
+                 <%= link_to " 詳細を見る", event, class: "button is-warning is-fullwidth is-light"  %>
+                </a>
+               </article>
+              <div class="card">
+              </div>
+            <% end %>
+            <% end %>
+          <% else %>
+            <% @sp_events.each do |event| %>
+            <% if  event.privacy == 1 %>
+              <article class="panel is-warning">
+                <p class="panel-heading">
+                  <%= event.start_time.strftime("%m月%d日") %><br><%= event.title %>
+                </p>
+                <div class="panel-block">
+                  <p class="control">
+                    <%= link_to event_path(event) do %>
+                    <% if event.thumbnail.attached? %>
+                    <%= image_tag event.thumbnail %>
+                    <% end %>
+                    <% end %>
+                  </p>
+                </div>
+                <a class="panel-block">
+                 <%= link_to " 詳細を見る", event, class: "button is-warning is-fullwidth is-light"  %>
+                </a>
+                </article>
+              <div class="card">
+              </div>
+            <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        
+    <div>
+      <%# if @regions.present? %>
+        <%# @regions.each do |r| %>
+          <%#= link_to r.regionname, root_path(region: r.id) ,class: "button is-warning region-button", data: { region_id: r.id } %>
+        <%# end %>
+      <%# else %>
+        <!-- <p>No regions available.</p> -->
+      <%# end %>
+    </div>
+      
+      <div class="columns is-centered">
+        <div class="column is-5">
+          <% if user_signed_in?%>
+          <br>
+          <%= link_to "新規イベント作成", new_event_path, class: "button is-warning is-fullwidth" %>
+          <% else %>
+          <br>
+          <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-fullwidth" %>
+          <br>
+          <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-fullwidth" %>
+          <% end %>
+        </div>
+      </div>
+    </div> 
+  </article>
+
+</section>

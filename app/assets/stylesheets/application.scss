@@ -1,0 +1,450 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ 
+ *= require_tree .
+ *= require_self
+ */
+ 
+ @import "simple_calendar";
+ @import "bulma";
+
+ 
+ .notification:not(:last-child){
+	margin-bottom: 0;
+}
+
+.profile_image {
+ border-radius: 20%;
+}
+
+.main-image{
+ height: 940px;
+ background-image: url(meal.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.image_a img{
+  width: 250px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.image_b img{
+  width: 48px;
+  height: 25px;
+  object-fit: cover;
+}
+
+.image_c img{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+small {
+  color: gray;
+}
+
+.comment{
+  color: #343a40;
+  text-align: center;
+  padding: 20px 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 30%;
+  margin-top: 30px;
+}
+
+ul li {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+ul li h2 {
+  margin: 0 0 10px 0;
+  color: #495057;
+}
+
+ul li p {
+  color: #212529;
+  margin: 0;
+}
+
+.button-contneair {
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.form-input {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-input input,
+.form-input textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.link-button {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.link-delete-button {
+  display: inline-block;
+  background-color: #cc361f;
+  font-size: 17px;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  margin-left: 10px;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.edit-delete-wrapper {
+  display: flex;
+  margin-top: 10px;
+}
+
+.testmenu {
+  display:none;
+}
+
+.testmenu.active{
+ display:block;
+}
+
+.testtop.active{
+ display:none;
+}
+
+.testhome.active{
+ display:none;
+}
+
+.testtop.active{
+ padding-top: 180px;
+}
+
+.hamburger{
+  text-align:right;
+}
+
+/*2重スクロールバーを1つにする */
+// .media-content{
+//     overflow-x:visible !important;
+// }
+.comment2{
+  border: 2px solid #aaa;
+  padding: 2em;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.title{
+  flex-grow: 1;
+}
+.media-content{
+overflow-x:visible !important;
+}
+
+.calendar_event{
+  display: flex;
+}
+
+.pc-calendar{
+  
+}
+.sp-calendar{
+  display: none;
+}
+
+@media screen and (max-width:480px) { 
+    /*　画面サイズが480pxからはここを読み込む　*/
+  .pc-calendar {
+    display: none;
+  }
+  .sp-calendar{
+    display: block;
+  }
+  .is-size-1 {
+    font-size: 2.3rem !important;
+}
+
+.notification:not(:last-child) {
+    margin-bottom: 0;
+    top: 50px;
+}
+}
+
+.top1{
+  padding-top: 20px;
+}
+
+.t-title{
+  display: block;
+  padding-top: 15px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+#calendar_container{
+    display: grid;
+    grid-template-rows: 1ft;
+    grid-template-columns: 50px 30px 1ft;
+}
+
+.calendar_border{
+  padding: 10px;
+  border-top: 1px solid #faeab6;
+  border-bottom: 1px solid #faeab6;
+}
+
+.comment_border{
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+
+.calendar_border_w{
+  border-bottom: 2px solid #ffe08a;
+  border-top: 2px solid #ffe08a;
+}
+
+.calendar_border_t{
+  border-bottom: 2px solid #ffe08a;
+}
+
+.calendar_border_b{
+  border-top: 2px solid #ffe08a;
+}
+
+#itemA{
+    grid-column: 1 / 2;
+}
+
+#itemB{
+    grid-column: 2 / 3;
+}
+
+#itemC{
+    grid-column: 3 / 4;
+} 
+
+.hamburger_center{
+text-align: center;
+}
+
+#h3{
+  font-size: 20px;
+}
+.comment_bottom{
+border-bottom: 1px solid #a3a3a3;
+}
+
+.panel-block {
+    padding: initial;
+}
+
+.section {
+    padding: 1rem 1.5rem;
+}
+
+.daily_size{
+  font-size:   25px;
+  font-weight: bold;
+  color: black;
+}
+
+.prev-month a {
+  display: none;
+}
+.next-month a {
+  display: none;
+}
+
+.today {
+   color: black;
+   background-color: orange;
+}
+
+.panel:not(:last-child) {
+    margin-top: 0.5rem;
+    margin-bottom: 0px;
+}
+
+.ff_t{
+  margin-top: 0.5rem;
+}
+
+.table td, .table th {
+    border: 1px solid #dbdbdb;
+    border-width: 0 0 1px;
+    padding: 0.5em 0.5em;
+    vertical-align: top;
+}
+
+.element.style {
+    font-family: sans-serif;
+}
+
+.calendar_p{
+  position: fixed;
+  top: 50px;
+  z-index: 999;
+  top: 140px;
+  width: 90%;
+}
+
+  .calendar_p > p2 {
+    top: 140px;
+  }
+
+.calendar_p2{
+  position: fixed;
+  z-index: 999;
+  top: 140px;
+  width: 100%;
+}
+
+.home_p{
+  position: fixed;
+  z-index: 999;
+  top: 0px;
+  right: 0px;
+}
+
+.home_p2{
+  position: fixed;
+  top: 80px;
+  z-index: 999;
+  
+}
+.box-a{
+  background-color: #f8f9fa;
+  width: 100%;
+  height: 135px;
+  top: 52px;
+  left: 0px;
+}
+  .title-t{
+  top: 50px;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.ff_2{
+  margin-top: 20px;
+}
+
+.head-p{
+  padding-top: 50px;
+}
+
+.test{
+  top: 1000px;
+}
+
+.button_send {
+  display: inline-block;
+  border-radius: 5%;
+  font-size: 13pt;
+  text-align: center;
+  cursor: pointer;
+  padding: 9px 50px;
+  background: #00d1b1;
+  color: #ffffff;
+  line-height: 1em;
+  transition: .3s;
+  border: 2px solid #00d1b1;
+}
+
+.hero-body {
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 1.5rem 1rem;
+}
+
+.menu_b{
+    margin-bottom: 0.75rem;
+}
+
+.menu_c{
+    margin-bottom: 0.5rem;
+}
+
+.top2{
+  margin-top: 10px;
+}
+
+.content p:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content ul:not(:last-child), .content blockquote:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child) {
+  margin-bottom: initial;
+}
+
+.touch{
+  font-size: 17px;
+}
+
+.days_s{
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 100px;
+}
+
+.days_a{
+  font-size: 17px;
+  font-weight: bold;
+}

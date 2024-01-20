@@ -1,0 +1,201 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        プロフィール
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div>
+          <div >
+            <div class="image_c hamburger_center">
+          <div class="table is-fullwidth">
+            <table class="table is-fullwidth">
+                <td class="is-size-4">
+                  <strong><%= @user.username %></strong>
+                </td>
+            </table>
+          </div>
+              <figure class="image is-16by9"  style="margin-left: auto; margin-right: auto;">
+                <% if @user.avatar.attached? %>
+                　<%= image_tag @user.avatar %>
+                <% end %>
+              </figure>
+            </div>
+          </div>
+          <div class="hamburger_center">
+            <table class="table is-fullwidth">
+              <div class="hamburger_center">
+                <th>&emsp;&emsp;&emsp;</th>
+                <th>
+                  <%= link_to follows_user_path(@user) do %>
+                    <%= @user.followers.count %>フォロー
+                  <% end %> 
+                </th>
+                <th>&emsp;&emsp;&emsp;</th>
+                <th>  
+                  <%= link_to followers_user_path(@user) do %>
+                    <%= @user.followeds.count %>フォロワー
+                  <% end %>
+                </th>
+              </div>
+
+              <div>
+                <% if current_user != @user && user_signed_in?%>
+                  <% if current_user.following?(@user) %>
+                    <%= link_to "フォロー解除", user_relationships_path(@user.id),  data: { turbo_method: :delete }, class: "button is-primary is-fullwidth is-light" %>
+                  <% else %>
+                    <%= link_to "フォロー", user_relationships_path(@user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth is-light" %>
+                  <% end %>
+                <% end %>
+              </div>
+           </table>
+                    
+              <table class="table is-fullwidth">
+                <% if @user.id == current_user.id %>
+                <td class="is-size-4">
+                  <%= @user.email %>
+                </td>
+                <% end %>
+              </tr>
+              <tr>
+                <td>
+                  <p>プロフィール紹介</p>
+                  <p><%= @user.profile %></p>
+                  <p>世代：<%= @user.age %>&emsp;&emsp;性別：<%= @user.gender %></p>
+                <% if @user.id == current_user.id %>
+                <p>
+                 <%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>
+                </p>
+
+                </td>
+                <% end %>
+              </tr>
+              <div>
+                <% unless @user.id == current_user.id %>
+                  <% if (current_user.following? @user) && (@user.following? current_user) %>
+                  <% if @is_room == true %>
+                    <p class="user-show-room"><a href="/rooms/<%= @room_id %>" class="button is-primary is-fullwidth is-light">DMを送る</a></p>
+                  <% else %>
+                    <%= form_for @room do |f| %>
+                      <%= fields_for @entry do |e| %>
+                        <%= e.hidden_field :user_id, value: @user.id %>
+                      <% end %>
+                      <%= f.submit "DMをはじめる", class: "button_send" %>
+                    <% end %>
+                  <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% if user_signed_in? %>
+      <% @user.events.each do |event| %>
+      <% if event.privacy== 2 &&(event.user.following? current_user)&& current_user.region_id == event.region_id  || event.privacy== 3 &&(current_user.following? event.user) && (event.user.following? current_user)&& current_user.region_id == event.region_id  || event.privacy == 1 || current_user == event.user %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= link_to event_path(event) do %>
+                <% if event.thumbnail.attached? %>
+                　<%= image_tag event.thumbnail %>
+                <% end %>
+                <% end %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <div class="title"><p><%=link_to event.title, event_path(event) %></p><h3>開催日時<p><%= event.start_time.strftime("%m月%d日 %H:%M") %></p></h3></div>
+                  <%= link_to event_path(event), class: "panel-block" do %>
+                    <span class="panel-icon">
+                      <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    このイベントを見る
+                  <% end %>
+                  <% if @user.id == current_user.id %>
+                    <%= link_to edit_event_path(event), class: "panel-block" do %>
+                      <span class="panel-icon">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                      このイベントを編集する
+                    <% end %>
+                    <%= link_to event_path(event), data: { turbo_method: :delete, turbo_confirm: '削除しますか?' }, class: "panel-block" do %>
+                      <span class="panel-icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                      このイベントを削除する
+                    <% end %> 
+                  <% end %>
+                </div>
+              </div>
+            </div>
+         </div>
+        </div>
+          <% end %>
+      <% end %>
+      <% else %>
+      <% @user.events.each do |event| %>
+      <% if  event.privacy == 1 %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= link_to event_path(event) do %>
+                <% if event.thumbnail.attached? %>
+                　<%= image_tag event.thumbnail %>
+                <% end %>
+                <% end %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <div class="title"><p><%=link_to event.title, event_path(event) %></p><h3>開催日時<p><%= event.start_time.strftime("%m月%d日 %H:%M") %></p></h3></div>
+                  <%= link_to event_path(event), class: "panel-block" do %>
+                    <span class="panel-icon">
+                      <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    このイベントを見る
+                  <% end %>
+                  <% if @user.id == current_user.id %>
+                    <%= link_to edit_event_path(event), class: "panel-block" do %>
+                      <span class="panel-icon">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                      このイベントを編集する
+                    <% end %>
+                    <%= link_to event_path(event), data: { turbo_method: :delete, turbo_confirm: '削除しますか?' }, class: "panel-block" do %>
+                      <span class="panel-icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                      このイベントを削除する
+                    <% end %> 
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<div class="simple-calendar">
+ <div clas>
+  <div class="calendar-heading hamburger_center daily_size calendar_p">
+    <%= link_to t('simple_calendar.previous', default: '前の月'), calendar.url_for_previous_view, class: "button is-warning is-light" %>&emsp;&emsp;&emsp;
+    <span class="calendar-title calendar_p2 button is-warning is-light is-medium"><%= start_date.year %>年<%= t('date.month_names')[start_date.month] %> </span>
+   &emsp;&emsp;&emsp;<%= link_to t('simple_calendar.next', default: '次の月'), calendar.url_for_next_view, class: "button is-warning is-light" %>
+  </div>
+
+  <table class="table table-striped ff_2">
+
+
+    <tbody>
+      <% date_range.each_slice(7) do |week| %>
+          <% week.each do |day| %>
+            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+              <%= t('date.abbr_day_names')[day.wday] %>
+              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
+                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
+              <% else %>
+                <% passed_block.call day, sorted_events.fetch(day, []) %>
+              <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

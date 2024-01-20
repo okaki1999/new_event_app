@@ -1,0 +1,12 @@
+<div class="sp-calendar head-p"></div>
+<% @regions.each do |region| %>
+<div>
+<%= region.regionname %>
+<%= button_to region_path(region), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger', title: '削除' do %>
+  <i class="fas fa-trash"></i>
+<% end %>
+  <p>
+   <%= link_to "編集", edit_region_path(region), class: "button is-primary" %>
+  </p>
+</div>
+<% end %>

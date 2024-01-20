@@ -1,0 +1,88 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        ユーザー編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% if @user.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<% if @user.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @user do |f| %>
+          <div class="field">
+            <%= f.label :username, "ユーザー名", class: "label" %>
+            <%= f.text_field :username, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email, "メールアドレス", class: "label" %>
+            <%= f.email_field :email, class: "input" %>
+          </div>
+
+          <div class="menu_b">
+            <%= f.label :tregion,"エリア", class: "label" %>
+            <%= f.select(:region_id, Region.all.map { |r| [r.regionname, r.id] }, {}, { class: 'form-control' }) %>
+          </div>
+
+          <div class="field">
+            <%= f.label :profile, "プロフィール", class: "label" %>
+            <%= f.text_area :profile, class: "textarea" %>
+          </div>
+
+          <div class="menu_b">
+            <%= f.label :gender,"性別", class: "label" %>
+            <%= f.select :gender, [["男性"], ["女性"], ["未公開"]]  %>
+          </div>
+          
+          <div class="menu_b">
+            <%= f.label :age,"年齢", class: "label" %>
+            <%= f.select :age, [["１０代"], ["２０～３０歳"], ["３０～４０歳"], ["４０～５０歳"], ["５０～６０歳"], ["６０～７０歳"], ["７０～８０歳"], ["８０歳以上"]], selected: "２０～３０歳" %>
+          </div>
+          
+          <div class="field">
+            <%= f.label :avatar, "プロフィール写真", class: "label" %>
+            <%= f.file_field :avatar, class: "input"%>
+          </div>
+
+          <%= f.submit "更新", class: "button is-success" %>
+        <td>
+          
+        <%= link_to user_path(@user), data: { turbo_method: :delete, turbo_confirm: '削除しますか?' }, class: "button is-success" do %>
+          このユーザーを削除する
+        <% end %> 
+
+            
+        </td>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>　

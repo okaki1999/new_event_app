@@ -1,0 +1,46 @@
+<div class="testtop">
+<div class="simple-calendar testhome">
+  <div class="calendar-heading hamburger_center daily_size calendar_p">
+    <%= link_to t('simple_calendar.previous', default: '前の月'), calendar.url_for_previous_view, class: "button is-warning is-light" %>
+    <span class="calendar-title p2 button is-warning is-light "><%= start_date.year %>年<%= t('date.month_names')[start_date.month] %> </span>
+   <%= link_to t('simple_calendar.next', default: '次の月'), calendar.url_for_next_view, class: "button is-warning is-light" %>
+  </div>
+
+
+</div>
+</div>
+
+  <div class="table table-striped">
+    <div>
+      <div>
+        <%# date_range.slice(0, 7).each do |day| %>
+          <div><%#= t('date.abbr_day_names')[day.wday] %></div>
+        <%# end %>
+      </div>
+    </div>
+
+<div class="simple-calendar">
+    <div>
+      <div class="calendar_border_t"></div>
+      <div class="daily_size">
+      <% date_range.each_slice(7) do |week| %>
+      <div class="calendar_border_w hamburger_center">
+          <% week.each do |day| %>
+          <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+            <div class="calendar_border">
+            (<%= t('date.abbr_day_names')[day.wday] %>)&emsp;
+              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
+                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
+              <% else %>
+                <% passed_block.call day, sorted_events.fetch(day, []) %>
+              <% end %>
+            <% end %>
+            </div>
+          <% end %>
+      </div>
+      <% end %>
+       </div>
+      <div class="calendar_border_b"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<% @prefectures.each do |prefecture| %>
+<div>
+<%= prefecture.prefecturename %>
+<%= button_to prefecture_path(prefecture), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger', title: '削除' do %>
+  <i class="fas fa-trash"></i>
+<% end %>
+</div>
+<% end %>

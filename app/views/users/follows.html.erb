@@ -1,0 +1,132 @@
+<div class="sp-calendar head-p"></div>
+<div class="pc-calendar">
+<div class="card">
+  <div class="card-content">
+    <div class="card-image">
+      <div class="image_a">
+        <div class="hamburger_center">
+          <%= @name %>さんがフォローしている人
+          <div class="image 48x48">
+            <%= link_to user_path(@c_user) do %>
+            <% if @c_user.avatar.attached? %>
+              <%= image_tag @c_user.avatar %>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+      <table class='table'>
+    <thead>
+      <tr>
+        <th>アイコン</th>
+        <th>名前</th>
+        <th>フォロー状態</th>
+        <th>&emsp;</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <div class="card-image">
+              <div class="image_a">
+                <figure class="image is-4by3">
+                   <%= link_to user_path(user) do %>
+                     <% if user.avatar.attached? %>
+                       <%= image_tag user.avatar %>
+                    <% end %>
+                  <% end %>
+                </figure>
+              </div>
+            </div>
+          </td>
+          <td><%=link_to user.username, user_path(user) %></td>
+          <td>
+            <% if current_user != user && user_signed_in?%>
+              <% if current_user.following?(user) %>
+                <%= link_to "フォロー解除", user_relationships_path(user.id),  data: { turbo_method: :delete }, class: "button is-primary is-fullwidth is-light" %>
+              <% else %>
+                <%= link_to "フォロー", user_relationships_path(user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth is-light" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table> 
+</div>
+<div class="card">
+  <div class="hamburger_center ff_t">
+   <%= @name %>さんをフォロー中の人は<%= link_to "こちら", followers_user_path(@c_user), class: "button is-primary is-small is-light" %>
+  </div>
+</div>
+</div>
+
+<div class="sp-calendar">
+<div class="card">
+  <div class="card-content">
+    <div class="card-image">
+      <div class="image  hamburger_center">
+        <article class="panel is-link is-light">
+          <p class="panel-heading">
+            <%= @name %>さんがフォローしている人
+          </p>
+          <div class="image 48x48">
+            <%= link_to user_path(@c_user) do %>
+            <% if @c_user.avatar.attached? %>
+              <%= image_tag @c_user.avatar %>
+            <% end %>
+            <% end %>
+          </div>
+          <div class="card">
+            <table class='table'>
+              <thead>
+                <tr>
+                  <th>アイコン&emsp;</th>
+                  <th>名前</th>
+                  <th>フォロー状態</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr>
+                    <td>
+                      <div class="card-image">
+                        <div class="image_a">
+                          <figure class="image is-4by3">
+                             <%= link_to user_path(user) do %>
+                               <% if user.avatar.attached? %>
+                                 <%= image_tag user.avatar %>
+                              <% end %>
+                            <% end %>
+                          </figure>
+                        </div>
+                      </div>
+                    </td>
+                    <td><%=link_to user.username, user_path(user) %></td>
+                    <td>
+                      <% if current_user != user && user_signed_in?%>
+                        <% if current_user.following?(user) %>
+                          <%= link_to "フォロー解除", user_relationships_path(user.id),  data: { turbo_method: :delete }, class: "button is-primary is-fullwidth is-light" %>
+                        <% else %>
+                          <%= link_to "フォロー", user_relationships_path(user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth" %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table> 
+          </div>
+            <div class="hamburger_center ff_t">
+            　<%= @name %>さんをフォロー中の人は<%= link_to "こちら", followers_user_path(@c_user), class: "button is-primary is-small is-light" %>
+            </div>
+      　</article>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

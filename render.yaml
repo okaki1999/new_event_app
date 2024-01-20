@@ -1,0 +1,22 @@
+databases:
+  - name: eventapp_production
+    databaseName: eventapp_production
+    user: eventapp_user
+    region: oregon
+    plan: free
+
+services:
+  - type: web
+    name: eventapp_production
+    env: ruby
+    region: oregon
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: eventapp_production
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false

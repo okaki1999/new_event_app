@@ -1,0 +1,83 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+          プロフィール一覧
+      </h1>
+          <%= search_form_for @q, url: users_path, method: :get do |f| %>
+          <%= f.label :username_cont, "名前で検索" %>
+          <%= f.search_field :username_cont %>
+          <%= f.submit "検索" %>
+          <% end %>
+          
+          
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% search_results = @q.result(distinct: true) %>
+      <% search_results.each do |user| %>
+        <div class="column is-3">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-image">
+                <div class="image_a">
+                  <figure class="image">
+                    <%= link_to user_path(user) do %>
+                      <% if user.avatar.attached? %>
+                        <%= image_tag user.avatar %>
+                      <% end %>
+                    <% end %>
+                  </figure>
+                </div>
+              </div>
+            </div>　
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <div class="title"><%=link_to user.username, user_path(user) %></div>
+                </div>
+              </div>
+              
+              <div>
+              <div class="content">
+                企画数：<%= user.events.count %><br>
+                世代：<%= user.age %><br>
+                area<%= user.region_id%>
+              </div>
+              
+              <div class="hamburger_center">
+                <th>
+                  <%= link_to follows_user_path(user) do %>
+                    <%= user.followers.count %>フォロー
+                  <% end %> 
+                </th>
+                <th>&emsp;</th>
+                <th>  
+                  <%= link_to followers_user_path(user) do %>
+                    <%= user.followeds.count %>フォロワー
+                  <% end %>
+                </th>
+              </div>
+                    <td>
+                    <% if current_user != user && user_signed_in?%>
+                        <% if current_user.following?(user) %>
+                          <%= link_to "フォロー解除", user_relationships_path(user.id),  data: { turbo_method: :delete }, class: "button is-primary is-fullwidth is-light" %>
+                        <% else %>
+                          <%= link_to "フォロー", user_relationships_path(user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth is-light" %>
+                        <% end %>
+                      <% end %>
+                    </td>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

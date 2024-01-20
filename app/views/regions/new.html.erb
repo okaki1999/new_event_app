@@ -1,0 +1,34 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        新規エリア作成
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @region do |f| %>
+        
+          <div>
+            <%= f.label :prefecture,"県", class: "label" %>
+            <%= f.select(:prefecture_id, Prefecture.all.map { |r| [r.prefecturename, r.id] }, {}, { class: 'form-control' }) %>
+          </div>
+        
+        
+          <div class="field">
+            <%= f.label :regionname, "エリア名", class: "label" %>
+            <%= f.text_field :regionname, class: "input" %>
+          </div>
+
+          <%= f.submit '投稿', class: "button is-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

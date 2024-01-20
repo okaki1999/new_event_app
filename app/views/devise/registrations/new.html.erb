@@ -1,0 +1,90 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        新規登録画面
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-5">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+
+        <div class="field">
+          <%= f.label :username,"ユーザーネーム", class: "label" %>
+          <p class="control has-icons-left">
+            <%= f.text_field :username, autofocus: true, autocomplete: "email", :placeholder => "username", class: "input" %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </p>
+        </div>
+        
+          <div class="menu_b">
+            <%= f.label :region,"エリア", class: "label" %>
+            <%= f.select(:region_id, Region.all.map { |r| [r.regionname, r.id] }, {}, { class: 'form-control' }) %>
+          </div>
+          
+          <div class="menu_b">
+            <%= f.label :gender,"性別", class: "label" %>
+            <%= f.select :gender, [["男性"], ["女性"], ["未公開"]]  %>
+          </div>
+          
+          <div class="menu_b">
+            <%= f.label :age,"年齢", class: "label" %>
+            <%= f.select :age, [["１０代"], ["２０～３０歳"], ["３０～４０歳"], ["４０～５０歳"], ["５０～６０歳"], ["６０～７０歳"], ["７０～８０歳"], ["８０歳以上"]] , selected: "２０～３０歳" %>
+          </div>
+
+        <div class="field">
+          <%= f.label :email,"メールアドレス", class: "label" %>
+          <p class="control has-icons-left">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "email", class: "input" %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </p>
+        </div>
+        
+        <div class="field">
+          <%= f.label :password,"パスワード",class: "label" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %>文字以上)</em>
+          <% end %>
+          <p class="control has-icons-left">
+          <%= f.password_field :password, autocomplete: "new-password", :placeholder => "password", class: "input" %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        
+
+        <div class="field">
+          <%= f.label :password_confirmation,"パスワードをもう一回", class: "label" %>
+          <p class="control has-icons-left">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", :placeholder => "password confirmation", class: "input" %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        
+
+        
+        <div class="actions">
+          <%= f.submit "新規登録", class: "button is-success" %>
+        </div>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</section>

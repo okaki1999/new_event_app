@@ -1,0 +1,75 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        イベント編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% if @event.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@event.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @event do |f| %>
+          <div class="field">
+            <%= f.label :title, "イベント名", class: "label" %>
+            <%= f.text_field :title, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :body, "開催内容", class: "label" %>
+            <%= f.text_area :body, class: "textarea" %>
+          </div>
+          
+          <div>
+            <%= f.label :genre_id,"ジャンル", class: "label" %>
+            <%= f.select :genre_id, [["スポーツ", 1], ["インドア",2], ["飲み会", 3], ["イベント", 4], ["カラオケ", 5], ["映画", 6]]  %>
+          </div>
+          
+          <div>
+            <%= f.label :privacy,"公開範囲", class: "label" %>
+            <%= f.select :privacy, [["全ユーザーに公開", 1], ["自分がフォロー中のユーザーに公開",2], ["相互フォローのユーザーに公開", 3]] %>
+          </div>
+          
+          <div>
+            <%= f.label :region,"エリア", class: "label" %>
+            <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :prefecturename, {}, { class: 'form-control' }) %>
+            <%= f.select(:region_id, Region.all.map { |r| [r.regionname, r.id] }, {}, { class: 'form-control' }) %>
+          </div>
+          
+          <div>
+            <%= f.label :address,"開催場所", class: "label" %>
+            <%= f.text_field :address, class: "input"%>
+          </div>
+
+          <div class="field">
+            <%= f.label :thumbnail, "写真", class: "label" %>
+            <%= f.file_field :thumbnail, class: "input"%>
+          </div>
+          
+          <div class="field">
+            <%= f.label :start_time, "時間", class: "label" %>
+            <%= f.datetime_select :start_time, class: "input"%>
+          </div>
+
+          <%= f.submit '投稿', class: "button is-success" %>
+        <% end %>
+      </div> 
+    </div>
+  </div>
+</section>
+

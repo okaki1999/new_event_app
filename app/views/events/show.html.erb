@@ -1,0 +1,219 @@
+<div class="sp-calendar head-p"></div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        イベント詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% if @event.privacy== 2 &&(@event.user.following? current_user) || @event.privacy== 3 &&(current_user.following? @event.user) && (@event.user.following? current_user) || @event.privacy == 1 || current_user == @event.user %>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-7">
+        <div class="card">
+          <figure class="image">
+              <% if @event.thumbnail.attached? %>
+              <%= image_tag @event.thumbnail %>
+              <% end %>
+          </figure>
+          <div class="card-content"> 
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4"><%= @event.title %></p>
+              </div>
+            </div>
+              <table class="table is-narrow">
+                <div class="days_a">
+                <p>開催日時:<%= @event.start_time.strftime("%m月%d日 %H:%M") %></p>
+                </div>
+                <tr>
+                  <th>詳細</th>
+                </tr>
+                <tr>
+                  <td><%= simple_format @event.body %></td>
+                </tr>
+              </table>
+
+
+            <div class="pc-calendar">
+              <% if current_user != nil %>
+                <% if current_user.already_favorited?(@event) %>
+                  <%= link_to event_favorites_path(@event), data: { turbo_method: :delete }  do %>
+                   <button class="button is-info">未定にする</button>
+                  <% end %>
+                <% elsif current_user.already_interested?(@event)%>
+                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :delete }  do %>
+                   <button class="button is-primary">未定にする</button>
+                  <% end %>
+                <% elsif current_user.already_absence?(@event)%>
+                  <%= link_to event_absences_path(@event), data: { turbo_method: :delete }  do %>
+                   <button class="button is-danger">未定にする</button>
+                  <% end %>
+                <% else %>
+                  <%= link_to event_favorites_path(@event), data: { turbo_method: :post }  do %>
+                      <button class="button is-info">参加</button>
+                  <% end %>
+                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :post }  do %>
+                      <button class="button is-primary">保留</button>
+                  <% end %>
+                  <%= link_to event_absences_path(@event), data: { turbo_method: :post }  do %>
+                      <button class="button is-danger">不参加</button>
+                  <% end %>
+                <% end %> 
+              <% end %>
+            </div>
+
+            <div class="sp-calendar">
+              <% if current_user != nil %>
+                <% if current_user.already_favorited?(@event) %>
+                  <%= link_to event_favorites_path(@event), data: { turbo_method: :delete }  do %>
+                  <button class="button is-info is-fullwidth">未定にする</button>
+                  <% end %>
+                <% elsif current_user.already_interested?(@event)%>
+                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :delete }  do %>
+                  <button class="button is-primary is-fullwidth">未定にする</button>
+                  <% end %>
+                <% elsif current_user.already_absence?(@event)%>
+                  <%= link_to event_absences_path(@event), data: { turbo_method: :delete }  do %>
+                  <button class="button is-danger is-fullwidth">未定にする</button>
+                  <% end %>
+                <% else %>
+                  <%= link_to event_favorites_path(@event), data: { turbo_method: :post }  do %>
+                      <button class="button is-info">参加</button>
+                  <% end %>
+                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :post }  do %>
+                      <button class="button is-primary">保留</button>
+                  <% end %>
+                  <%= link_to event_absences_path(@event), data: { turbo_method: :post }  do %>
+                      <button class="button is-danger">不参加</button>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+
+
+
+
+
+                参加者  
+                <% @event.favorites.each do |f_user| %>
+                <%= link_to user_path(f_user.user) do %>
+                  <br><%= f_user.user.username %>
+                <% end %>
+                <% end %>
+                <br>保留者
+                <% @event.interesteds.each do |i_user| %>
+                <%= link_to user_path(i_user.user) do %>
+                  <br><%= i_user.user.username %>
+                <% end %>
+                <% end %>
+                <br>不参加者
+                <% @event.absences.each do |a_user| %>
+                <%= link_to user_path(a_user.user) do %>
+                  <br><%= a_user.user.username %>
+                <% end %>
+                <% end %>
+                <% if @event.user.id == current_user.id %>
+                  <br><%= link_to "編集画面へ", edit_event_path(@event), class: "button is-success" %>
+                <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <article class="panel is-link">
+          <p class="panel-heading">
+            企画者 <%= @event.user.username %>
+          </p>
+          <div class="panel-block">
+            <p class="control">
+              <%= @event.user.profile %>
+            </p>
+          </div>
+          <%= link_to user_path(@event.user), class: "panel-block" do %>
+            <span class="panel-icon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </span>
+            <%= @event.user.username %> さんのページへ
+          <% end %>
+      　</article>
+      　
+      　<article class="panel is-link">
+          <p class="panel-heading">
+            コメント件数：<%= @event.post_comments.count %>
+          </p>
+          <div class="comment_bottom"></div>
+            <% @event.post_comments.each do |post_comment| %>
+          <div class="panel-block">
+            <p class="control">
+            コメント：<%= post_comment.comment %>
+            </p>
+          </div>
+          <p class="comment_border">
+          投稿者：<%= post_comment.user.username %>&emsp;&emsp;投稿日：<%= post_comment.created_at.strftime('%m月/%d日 %H:%M') %>
+          </p>
+          <div class="comment_border">
+            <% if post_comment.user == current_user %>
+              <%= link_to "削除", event_post_comment_path(post_comment.event, post_comment), data: { turbo_method: :delete }, class: "button is-primary" %>
+            <% end %>
+          </div>
+          <div class="comment_bottom"></div>
+            <% end %>
+        </article>
+        
+        <div>
+          &emsp;
+        </div>  
+        <div>
+          <%= form_with model: [@event, @post_comment] do |f| %>
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+            <%= f.submit "送信する" %>
+          <% end %>
+        </div>
+      開催場所：<%= @event.address %>
+<script type="text/javascript">
+     function initMap() {
+       var test = {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
+       var map = new google.maps.Map(document.getElementById('map'), {
+                 zoom: 15, 
+                 center: test
+                 });
+       var transitLayer = new google.maps.TransitLayer();
+       transitLayer.setMap(map);
+       var contentString = '住所：<%= @event.address %>';
+       var infowindow = new google.maps.InfoWindow({
+         content: contentString
+       });
+       var marker = new google.maps.Marker({
+                     position:test,
+                     map: map,
+                     title: contentString
+                   });
+       marker.addListener('click', function() {
+         infowindow.open(map, marker);
+       });
+     }
+   </script>
+   <script async defer
+             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key= <%= ENV['GOOGLEMAP_API_KEY'] %>&callback=initMap">
+   </script>
+   <style type="text/css">
+     #map { height: 300px;
+           width: 100%;}
+   </style>
+   <div id="map"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<% else %>
+<h1 class="title">
+  お探しのイベントが見つかりませんでした。
+</h1>
+<% end %>
+
+
+
