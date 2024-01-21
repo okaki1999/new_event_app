@@ -418,6 +418,12 @@ border-bottom: 1px solid #a3a3a3;
     padding: 1.5rem 1rem;
 }
 
+.image_b img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+}
+
 .menu_b{
     margin-bottom: 0.75rem;
 }
@@ -439,7 +445,8 @@ border-bottom: 1px solid #a3a3a3;
 }
 
 .top5{
-  margin-top: 26px;
+  margin-top: 32px;
+  margin-right: 40px;
 }
 
 .content p:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content ul:not(:last-child), .content blockquote:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child) {

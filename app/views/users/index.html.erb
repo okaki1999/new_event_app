@@ -95,13 +95,20 @@
       <% search_results.each do |user| %>
       <div class="card bottom1">
       <div class="right">
-        <div class="image is-96x96">
+                  <div class="card-content">
+              <div class="card-image">
+      <div class="image">
+        <div class="image_b">
           <% if user.avatar.attached? %>
-          <div class="top3">
+          <div>
             <%= image_tag user.avatar %>
           </div>
           <% end %>
+          </div>
+      
+      </div>
         </div>
+      </div>
 
                 <div class="media-content top5">
                   <div class="title"><%=link_to user.username, user_path(user) %></div>
