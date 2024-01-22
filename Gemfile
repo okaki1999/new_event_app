@@ -96,3 +96,6 @@ gem 'geocoder'
 gem 'ransack'
 
 gem 'dotenv-rails'
+
+#時間通知
+gem 'whenever', require: false

@@ -121,7 +121,7 @@
                         <% if current_user.following?(user) %>
                           <%= link_to "フォロー解除", user_relationships_path(user.id),  data: { turbo_method: :delete }, class: "button is-primary is-fullwidth is-light" %>
                         <% else %>
-                          <%= link_to "フォロー", user_relationships_path(user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth is-light" %>
+                          <%= link_to "フォロー", user_relationships_path(user.id),  data: { turbo_method: :post }, class: "button is-primary is-fullwidth" %>
                         <% end %>
                     <% end %>
                     </td>  
