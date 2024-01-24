@@ -10,6 +10,6 @@ class LineService
       text: message
     }
 
-    client.broadcast(message)
+    response = client.broadcast(message) 
   end
 end

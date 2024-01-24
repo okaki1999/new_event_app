@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '11:53 am' do
-    runner "Event.send_notifications_for_upcoming_events"
+every 1.day, at: '02:31' do
+    runner "Batch::RemaindEvent.remaind_event"
 end

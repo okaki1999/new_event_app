@@ -16,7 +16,7 @@ class PrefecturesController < ApplicationController
     if @prefecture.save
       redirect_to request.referrer,notice: "新規エリアの作成に成功しました。"
     else
-      render :new,　status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
   
