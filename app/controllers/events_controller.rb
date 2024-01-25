@@ -49,7 +49,7 @@ end
     if @event.save
       user_id = ENV['LINE_USER_ID'] # ユーザーのIDに実際のIDを設定
       event_link = url_for(@event)
-      message = "#{@event.user.username}さんによる新しいイベント「#{@event.title}」が企画されました。\n開催日は#{@event.start_time.strftime("%m月/%d日")}です!\n「#{@event.body}」\nURLは#{event_link}"
+      message = "#{@event.user.username}さんによる新しいイベント「#{@event.title}」が企画されました。\n開催日は#{@event.start_time.strftime("%m月/%d日")}です!\n「#{@event.body}」\nURLは\n#{event_link}"
       LineService.broadcast(message)
       redirect_to event_path(@event),notice: "投稿に成功しました。"
     else
