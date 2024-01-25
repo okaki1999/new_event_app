@@ -28,13 +28,13 @@
         </div>
         
           <div class="menu_b">
-            <%= f.label :region,"エリア", class: "label" %>
-            <%= f.select(:region_id, Region.all.map { |r| [r.regionname, r.id] }, {}, { class: 'form-control' }) %>
+            <%= f.label :region, "エリア", class: "label" %>
+            <%= f.select(:region_id, Region.all.map { |r| [r.regionname, r.id] }, { selected: 1 }, { class: 'form-control' }) %>
           </div>
           
           <div class="menu_b">
             <%= f.label :gender,"性別", class: "label" %>
-            <%= f.select :gender, [["男性"], ["女性"], ["未公開"]]  %>
+            <%= f.select :gender, [["男性"], ["女性"], ["未公開"]], { selected: "男性" }  %>
           </div>
           
           <div class="menu_b">
