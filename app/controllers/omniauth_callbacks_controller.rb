@@ -6,12 +6,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     private
   
     def basic_action
-      @omniauth = request.env["omniauth.auth"]
-      if @omniauth.present?
-        @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
-  
-        # デフォルトで region_id を 1 に設定
-        @profile.region_id = 1
+        @omniauth = request.env["omniauth.auth"]
+        if @omniauth.present?
+          @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
+      
+          # デフォルトで region_id を 1 に設定
+          @profile.region_id = 1
+      
+          # ... 以下省略 ...
+        end
   
         if @profile.email.blank?
           email = @omniauth["info"]["email"] ? @omniauth["info"]["email"] : "#{@omniauth["uid"]}-#{@omniauth["provider"]}@example.com"
