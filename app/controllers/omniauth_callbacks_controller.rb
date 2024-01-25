@@ -35,4 +35,5 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def fake_email(uid, provider)
       "#{auth.uid}-#{auth.provider}@example.com"
     end
-  end
+end
+  
