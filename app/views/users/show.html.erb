@@ -25,7 +25,7 @@
           </div>
               <figure class="image is-16by9"  style="margin-left: auto; margin-right: auto;">
                 <% if @user.avatar.attached? %>
-                　<%= image_tag @user.avatar %>
+                  <%= image_tag @user.avatar %>
                 <% end %>
               </figure>
             </div>
@@ -33,13 +33,13 @@
           <div class="hamburger_center">
             <table class="table is-fullwidth">
               <div class="hamburger_center">
-                <th>&emsp;&emsp;&emsp;</th>
+                <th>&emsp;&emsp;</th>
                 <th>
                   <%= link_to follows_user_path(@user) do %>
                     <%= @user.followers.count %>フォロー
                   <% end %> 
                 </th>
-                <th>&emsp;&emsp;&emsp;</th>
+                <th>&emsp;&emsp;</th>
                 <th>  
                   <%= link_to followers_user_path(@user) do %>
                     <%= @user.followeds.count %>フォロワー
@@ -59,11 +59,6 @@
            </table>
                     
               <table class="table is-fullwidth">
-                <% if @user.id == current_user.id %>
-                <td class="is-size-4">
-                  <%= @user.email %>
-                </td>
-                <% end %>
               </tr>
               <tr>
                 <td>
