@@ -10,9 +10,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if @omniauth.present?
         @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
   
-        # デフォルトで region_id を 1 に設定
-        @profile.region_id = Region.first
-        
+        # デフォルトで region_id を Region.first の ID に設定
+        @profile.region_id ||= Region.first.id
   
         if @profile.email.blank?
           email = @omniauth["info"]["email"] ? @omniauth["info"]["email"] : "#{@omniauth["uid"]}-#{@omniauth["provider"]}@example.com"
@@ -21,7 +20,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
             uid: @omniauth["uid"],
             email: email,
             username: @omniauth["info"]["name"],
-            password: Devise.friendly_token[0, 20]
+            password: Devise.friendly_token[0, 20],
             region_id: @profile.region_id
           )
         end
@@ -37,5 +36,5 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def fake_email(uid, provider)
       "#{auth.uid}-#{auth.provider}@example.com"
     end
-end
+  end
   
