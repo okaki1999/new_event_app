@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   get 'index/new'
 
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: "omniauth_callbacks"
+  }
   
   root to: "home#index"
   resources :users do

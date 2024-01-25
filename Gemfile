@@ -99,3 +99,6 @@ gem 'dotenv-rails'
 
 #時間通知
 gem 'whenever', require: false
+
+gem 'omniauth-line'
+gem 'omniauth-rails_csrf_protection'
