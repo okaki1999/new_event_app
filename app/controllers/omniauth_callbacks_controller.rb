@@ -21,7 +21,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
             email: email,
             username: @omniauth["info"]["name"],
             password: Devise.friendly_token[0, 20]
-            region: @profile.region_id
+            region_id: @profile.region_id
           )
         end
   
