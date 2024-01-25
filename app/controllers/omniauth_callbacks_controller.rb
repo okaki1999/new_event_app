@@ -36,4 +36,3 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       "#{auth.uid}-#{auth.provider}@example.com"
     end
 end
-  
