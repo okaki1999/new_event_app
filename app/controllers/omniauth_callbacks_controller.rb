@@ -12,6 +12,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
         # デフォルトで region_id を 1 に設定
         @profile.region_id = Region.first
+        
   
         if @profile.email.blank?
           email = @omniauth["info"]["email"] ? @omniauth["info"]["email"] : "#{@omniauth["uid"]}-#{@omniauth["provider"]}@example.com"
