@@ -42,54 +42,62 @@
             <div class="pc-calendar">
               <% if current_user != nil %>
                 <% if current_user.already_favorited?(@event) %>
-                  <%= link_to event_favorites_path(@event), data: { turbo_method: :delete }  do %>
-                   <button class="button is-info">未定にする</button>
+                  <%= button_to event_favorites_path(@event), method: :delete, data: { turbo_method: :delete }, class: "button is-info" do %>
+                    未定にする
                   <% end %>
-                <% elsif current_user.already_interested?(@event)%>
-                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :delete }  do %>
-                   <button class="button is-primary">未定にする</button>
+                <% elsif current_user.already_interested?(@event) %>
+                  <%= button_to event_interesteds_path(@event), method: :delete, data: { turbo_method: :delete }, class: "button is-primary" do %>
+                    未定にする
                   <% end %>
-                <% elsif current_user.already_absence?(@event)%>
-                  <%= link_to event_absences_path(@event), data: { turbo_method: :delete }  do %>
-                   <button class="button is-danger">未定にする</button>
+                <% elsif current_user.already_absence?(@event) %>
+                  <%= button_to event_absences_path(@event), method: :delete, data: { turbo_method: :delete }, class: "button is-danger" do %>
+                    未定にする
                   <% end %>
                 <% else %>
-                  <%= link_to event_favorites_path(@event), data: { turbo_method: :post }  do %>
-                      <button class="button is-info">参加</button>
+                <div class="left_1">
+                  <%= button_to event_favorites_path(@event), method: :post, data: { turbo_method: :post }, class: "button is-info " do %>
+                    参加
                   <% end %>
-                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :post }  do %>
-                      <button class="button is-primary">保留</button>
+                </div>
+                <div class="left_1">
+                  <%= button_to event_interesteds_path(@event), method: :post, data: { turbo_method: :post }, class: "button is-primary " do %>
+                    保留
                   <% end %>
-                  <%= link_to event_absences_path(@event), data: { turbo_method: :post }  do %>
-                      <button class="button is-danger">不参加</button>
+                </div>
+                  <%= button_to event_absences_path(@event), method: :post, data: { turbo_method: :post }, class: "button is-danger" do %>
+                    不参加
                   <% end %>
-                <% end %> 
+                <% end %>
               <% end %>
             </div>
 
             <div class="sp-calendar">
               <% if current_user != nil %>
                 <% if current_user.already_favorited?(@event) %>
-                  <%= link_to event_favorites_path(@event), data: { turbo_method: :delete }  do %>
-                  <button class="button is-info is-fullwidth">未定にする</button>
+                  <%= button_to event_favorites_path(@event), method: :delete, data: { turbo_method: :delete }, class: "button is-info" do %>
+                    未定にする
                   <% end %>
-                <% elsif current_user.already_interested?(@event)%>
-                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :delete }  do %>
-                  <button class="button is-primary is-fullwidth">未定にする</button>
+                <% elsif current_user.already_interested?(@event) %>
+                  <%= button_to event_interesteds_path(@event), method: :delete, data: { turbo_method: :delete }, class: "button is-primary" do %>
+                    未定にする
                   <% end %>
-                <% elsif current_user.already_absence?(@event)%>
-                  <%= link_to event_absences_path(@event), data: { turbo_method: :delete }  do %>
-                  <button class="button is-danger is-fullwidth">未定にする</button>
+                <% elsif current_user.already_absence?(@event) %>
+                  <%= button_to event_absences_path(@event), method: :delete, data: { turbo_method: :delete }, class: "button is-danger" do %>
+                    未定にする
                   <% end %>
                 <% else %>
-                  <%= link_to event_favorites_path(@event), data: { turbo_method: :post }  do %>
-                      <button class="button is-info">参加</button>
+                <div class="left_1">
+                  <%= button_to event_favorites_path(@event), method: :post, data: { turbo_method: :post }, class: "button is-info " do %>
+                    参加
                   <% end %>
-                  <%= link_to event_interesteds_path(@event), data: { turbo_method: :post }  do %>
-                      <button class="button is-primary">保留</button>
+                </div>
+                <div class="left_1">
+                  <%= button_to event_interesteds_path(@event), method: :post, data: { turbo_method: :post }, class: "button is-primary " do %>
+                    保留
                   <% end %>
-                  <%= link_to event_absences_path(@event), data: { turbo_method: :post }  do %>
-                      <button class="button is-danger">不参加</button>
+                </div>
+                  <%= button_to event_absences_path(@event), method: :post, data: { turbo_method: :post }, class: "button is-danger" do %>
+                    不参加
                   <% end %>
                 <% end %>
               <% end %>
