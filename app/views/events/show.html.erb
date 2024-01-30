@@ -9,6 +9,7 @@
   </div>
 </section>
 
+
 <% if @event.privacy== 2 &&(@event.user.following? current_user) || @event.privacy== 3 &&(current_user.following? @event.user) && (@event.user.following? current_user) || @event.privacy == 1 || current_user == @event.user %>
 <section class="section">
   <div class="container">
