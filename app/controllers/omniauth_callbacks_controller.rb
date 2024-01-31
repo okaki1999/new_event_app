@@ -24,6 +24,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
             region_id: @profile.region_id
           )
         end
+        
   
         @profile.set_values(@omniauth)
         sign_in(:user, @profile)
