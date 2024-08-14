@@ -1,28 +1,24 @@
 class HomeController < ApplicationController
-def index
-  @regions = Region.all
-
-  # ログインしている場合、ログインユーザーの地域を取得
-  if user_signed_in?
-    @region = current_user.region || Region.first
-  else
-    # ログインしていない場合はデフォルトの地域を取得
-    @region = Region.first
+  def index
+    @regions = Region.all
+  
+    if user_signed_in?
+      @region = current_user.region || Region.first
+    else
+      @region = Region.first
+    end
+  
+    @region = Region.find_by(id: params[:region]) || @region
+    #クローンやデータの消去をしてregionがない状態だと無限リダイレクトになる
+    unless @region
+      redirect_to root_path, alert: "Invalid region specified"
+      return
+    end
+  
+    @events = @region.events
+    @sp_events = @region.events.where("start_time > ?", DateTime.now).order(:start_time)
   end
-
-  # パラメータで地域が指定されている場合はそれを使用
-  @region = Region.find_by(id: params[:region]) || @region
-
-  # ここで @region が Region オブジェクトであることを確認しましょう
-  unless @region.is_a?(Region)
-    # もしくは適切な処理を行ってください
-    redirect_to root_path, alert: "Invalid region specified"
-    return
-  end
-
-  @events = @region.events
-  @sp_events = @region.events && Event.where("events.start_time > ?", DateTime.now).order(:start_time)
-end
+  
   
   private
   

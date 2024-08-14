@@ -162,7 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_032555) do
     t.datetime "remember_created_at"
     t.string "username"
     t.text "profile"
-    t.string "profile_image_id"
+    t.string "profile_image_id　"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "region_id"
